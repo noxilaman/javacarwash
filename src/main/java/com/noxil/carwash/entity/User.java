@@ -13,7 +13,7 @@ public class User extends BaseEntity {
 
     @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
-    @JsonIgnore
+
     @Column(name = "password", nullable = false, length = 100)
     private String password;
     @Column(name = "username", nullable = false, unique = true, length = 100)

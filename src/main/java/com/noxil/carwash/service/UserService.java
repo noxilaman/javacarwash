@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -49,5 +50,17 @@ public class UserService {
         entity.setLastname(lastname);
 
         return repository.save(entity);
+    }
+
+    public Optional<User>  findByEmail(String email){
+        return repository.findByEmail(email);
+    }
+
+    public Optional<User>  findByUsername(String username){
+        return repository.findByUsername(username);
+    }
+
+    public boolean matchPassword(String rawPassword, String encodePassword){
+        return passwordEncoder.matches(rawPassword,encodePassword);
     }
 }

@@ -31,7 +31,7 @@ public class SecurityConfig {
         http.cors().disable()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeRequests().requestMatchers("/api/user/register").anonymous()
+                .and().authorizeRequests().requestMatchers("/api/user/register","/api/user/login").anonymous()
                 .anyRequest().authenticated()
                 .and().httpBasic();
         return http.build();

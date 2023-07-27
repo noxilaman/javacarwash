@@ -33,4 +33,13 @@ public class UserException extends BaseException {
     public static UserException createUsernameDuplicate() {
         return new UserException("create.username.duplicate");
     }
+
+    public static UserException loginUsernameOrEmailIsnull() {
+        return new UserException("login.usernameandemail.null");
+    }
+
+    public static UserException loginFail() {
+        return new UserException("login.fail");
+    }
+
 }

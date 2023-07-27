@@ -3,6 +3,8 @@ package com.noxil.carwash.api;
 import com.noxil.carwash.business.AuthBusiness;
 import com.noxil.carwash.entity.User;
 import com.noxil.carwash.exception.BaseException;
+import com.noxil.carwash.mapper.UserMapper;
+import com.noxil.carwash.model.MLoginRequest;
 import com.noxil.carwash.model.MUserRequest;
 import com.noxil.carwash.model.UserResponse;
 import org.springframework.http.ResponseEntity;
@@ -15,25 +17,30 @@ public class AuthApi {
     //Method
     private final AuthBusiness authbusiness;
 
-    public AuthApi(AuthBusiness authbusiness) {
+    private final UserMapper userMapper;
+
+    public AuthApi(AuthBusiness authbusiness, UserMapper userMapper) {
         this.authbusiness = authbusiness;
+        this.userMapper = userMapper;
     }
 
     @GetMapping
     public UserResponse main(){
-        UserResponse userResponse = new UserResponse();
-        userResponse.setUsername("Pkp");
-        userResponse.setPassword("asdklajsdlkjasd");
-        userResponse.setEmail("pong@g.com");
-        userResponse.setFirstname("Parinya");
-        userResponse.setLastname("Kornpitak");
-        return  userResponse;
+        User user = new User();
+
+        return  userMapper.toUserResponse(user) ;
     }
 
     @PostMapping
     @RequestMapping("/register")
-    public ResponseEntity<User> register(@RequestBody MUserRequest request) throws BaseException {
-        User response = authbusiness.register(request);
+    public ResponseEntity<UserResponse> register(@RequestBody MUserRequest request) throws BaseException {
+        UserResponse response = authbusiness.register(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody MLoginRequest request) throws BaseException {
+        String response = authbusiness.login(request);
         return ResponseEntity.ok(response);
     }
 }
