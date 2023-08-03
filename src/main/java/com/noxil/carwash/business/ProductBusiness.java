@@ -1,8 +1,13 @@
 package com.noxil.carwash.business;
 
+import com.noxil.carwash.entity.Product;
 import com.noxil.carwash.exception.BaseException;
 import com.noxil.carwash.exception.FileException;
 import com.noxil.carwash.exception.ProductException;
+import com.noxil.carwash.mapper.ProductMapper;
+import com.noxil.carwash.model.MProductRequest;
+import com.noxil.carwash.model.MProductResponse;
+import com.noxil.carwash.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +18,15 @@ import java.util.Objects;
 
 @Service
 public class ProductBusiness {
+
+    private final ProductService productService;
+
+    private final ProductMapper productMapper;
+
+    public ProductBusiness(ProductService productService, ProductMapper productMapper) {
+        this.productService = productService;
+        this.productMapper = productMapper;
+    }
 
     public String getProductById(String id) throws BaseException {
 
@@ -48,5 +62,15 @@ public class ProductBusiness {
         }
 
         return "";
+    }
+
+    public MProductResponse createNew(MProductRequest request) throws BaseException {
+        if (request == null) {
+            throw ProductException.nameIsNull();
+        }
+
+        Product product = productService.create(request.getName(),request.getDesc(),request.getPrice());
+
+        return productMapper.toProductResponse(product);
     }
 }
