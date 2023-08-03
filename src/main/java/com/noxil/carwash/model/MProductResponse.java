@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class MProductResponse {
     private String name;
-    private String desc;
+    private String detail;
     private float price;
 }

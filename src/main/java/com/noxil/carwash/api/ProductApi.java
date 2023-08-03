@@ -2,6 +2,10 @@ package com.noxil.carwash.api;
 
 import com.noxil.carwash.business.ProductBusiness;
 import com.noxil.carwash.exception.BaseException;
+import com.noxil.carwash.model.MProductRequest;
+import com.noxil.carwash.model.MProductResponse;
+import com.noxil.carwash.model.MUserRequest;
+import com.noxil.carwash.model.UserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +31,13 @@ public class ProductApi {
     @PostMapping
     public ResponseEntity<String> uploadProductPicture(@RequestPart MultipartFile file) throws BaseException, IOException {
         String response = productBusiness.uploadProductPicture(file);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping
+    @RequestMapping("/addnew")
+    public ResponseEntity<MProductResponse> register(@RequestBody MProductRequest request) throws BaseException {
+        MProductResponse response = productBusiness.createNew(request);
         return ResponseEntity.ok(response);
     }
 }

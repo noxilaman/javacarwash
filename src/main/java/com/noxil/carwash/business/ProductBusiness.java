@@ -69,7 +69,7 @@ public class ProductBusiness {
             throw ProductException.nameIsNull();
         }
 
-        Product product = productService.create(request.getName(),request.getDesc(),request.getPrice());
+        Product product = productService.create(request.getName(),request.getDetail(),request.getPrice());
 
         return productMapper.toProductResponse(product);
     }

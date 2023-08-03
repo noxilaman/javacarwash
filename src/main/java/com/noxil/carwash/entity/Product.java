@@ -9,10 +9,10 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity(name = "m_product")
 public class Product extends BaseEntity{
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "name", nullable = false, unique = true, length = 100)
     private String name;
-    @Column(name = "desc", nullable = false, length = 255)
-    private String desc;
+    @Column(name = "detail", nullable = false, length = 255)
+    private String detail;
     @Column(name = "price", nullable = false)
     private float price;
 }

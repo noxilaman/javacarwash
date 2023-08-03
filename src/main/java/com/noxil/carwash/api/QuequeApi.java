@@ -16,12 +16,15 @@ public class QuequeApi {
     @GetMapping("/all")
     public ResponseEntity<String> getAllQueque() throws BaseException {
 
-        return ResponseEntity.ok('OK');
+        String result = "Ok";
+
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping
     public ResponseEntity<String> addQueque(@RequestBody MUserRequest request) throws BaseException {
 
-        return ResponseEntity.ok("OK");
+        String result = "Ok";
+        return ResponseEntity.ok(result);
     }
 }

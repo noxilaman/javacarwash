@@ -17,13 +17,13 @@ public class ProductService {
         this.repository = repository;
     }
 
-    public Product create(String name,String desc, float price) throws BaseException {
+    public Product create(String name,String detail, float price) throws BaseException {
         //Validate
         if(Objects.isNull(name)){
             throw ProductException.nameIsNull();
         }
 
-        if(Objects.isNull(desc)){
+        if(Objects.isNull(detail)){
             throw ProductException.descIsNull();
         }
 
@@ -43,7 +43,7 @@ public class ProductService {
 
         Product product = new Product();
         product.setName(name);
-        product.setDesc(desc);
+        product.setDetail(detail);
         product.setPrice(price);
 
         return repository.save(product);
