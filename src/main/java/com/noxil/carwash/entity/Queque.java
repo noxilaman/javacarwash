@@ -2,6 +2,8 @@ package com.noxil.carwash.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -9,10 +11,13 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity(name = "m_queque")
 public class Queque  extends BaseEntity{
-    @Column(name = "userId", nullable = false, length = 32)
-    private String userId;
-    @Column(name = "productId", nullable = false, length = 32)
-    private String productId;
+
+    @OneToOne
+    @JoinColumn(name="carId")
+    private Car car;
+    @OneToOne
+    @JoinColumn(name="productId")
+    private Product product;
     @Column(name = "status", nullable = false, length = 100)
     private String status;
 }
