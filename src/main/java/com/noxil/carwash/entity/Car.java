@@ -12,10 +12,10 @@ import lombok.EqualsAndHashCode;
 @Entity(name = "m_car")
 public class Car extends BaseEntity{
 
-    @Column(name = "license_code", nullable = false, unique = true, length = 100)
-    private String license_code;
-    @Column(name = "car_size", nullable = false, length = 100)
-    private String car_size;
+    @Column(name = "licensecode", nullable = false, unique = true, length = 100)
+    private String licensecode;
+    @Column(name = "carsize", nullable = false, length = 100)
+    private String carsize;
     @Column(name = "brand", nullable = false, length = 100)
     private String brand;
     @Column(name = "detail", nullable = true, length = 100)

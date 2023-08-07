@@ -3,11 +3,11 @@ package com.noxil.carwash.service;
 import com.noxil.carwash.entity.Product;
 import com.noxil.carwash.exception.BaseException;
 import com.noxil.carwash.exception.ProductException;
-import com.noxil.carwash.exception.UserException;
 import com.noxil.carwash.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -48,5 +48,9 @@ public class ProductService {
 
         return repository.save(product);
 
+    }
+
+    public Optional<Product> findByName(String name){
+        return repository.findByName(name);
     }
 }
