@@ -7,6 +7,7 @@ import com.noxil.carwash.mapper.UserMapper;
 import com.noxil.carwash.model.MLoginRequest;
 import com.noxil.carwash.model.MUserRequest;
 import com.noxil.carwash.model.UserResponse;
+import com.noxil.carwash.service.TokenService;
 import com.noxil.carwash.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,12 @@ public class AuthBusiness {
 
     private final UserService userService;
 
+    private final TokenService tokenService;
     private final UserMapper userMapper;
 
-    public AuthBusiness(UserService userService, UserMapper userMapper) {
+    public AuthBusiness(UserService userService, TokenService tokenService, UserMapper userMapper) {
         this.userService = userService;
+        this.tokenService = tokenService;
         this.userMapper = userMapper;
     }
 
@@ -59,7 +62,6 @@ public class AuthBusiness {
             throw UserException.loginFail();
         }
 
-        String token = " ";
-        return token;
+        return tokenService.tokenize(user);
     }
 }

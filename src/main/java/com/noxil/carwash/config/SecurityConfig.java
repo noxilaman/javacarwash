@@ -1,5 +1,8 @@
 package com.noxil.carwash.config;
 
+import com.noxil.carwash.config.token.TokenFilter;
+import com.noxil.carwash.config.token.TokenFilterConfiguerer;
+import com.noxil.carwash.service.TokenService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +19,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
+
+    private final TokenService tokenService;
+
+    public SecurityConfig(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -31,9 +41,11 @@ public class SecurityConfig {
         http.cors().disable()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeRequests().requestMatchers("/api/user/register","/api/user/login").anonymous()
+                .and().authorizeRequests()
+                .requestMatchers("/actuator").anonymous()
+                .requestMatchers("/api/user/register","/api/user/login").anonymous()
                 .anyRequest().authenticated()
-                .and().httpBasic();
+                .and().apply(new TokenFilterConfiguerer(tokenService));
         return http.build();
     }
 }
